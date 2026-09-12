@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeBlox - منصة الألعاب</title>
+    <title>DeBlox</title>
     <style>
         :root {
             --primary-color: #0d69ac;
@@ -101,33 +101,16 @@
 <body>
 
     <header>
-        <h1>DeBlox Web Portal</h1>
-        <p>منصة الألعاب الجماعية والمتصلة بقاعدة البيانات</p>
+        <h1>Welcome to DeBLOX!</h1>
     </header>
 
     <div class="container">
         <h2 class="section-title">المابات المتاحة</h2>
         <div class="maps-grid" id="maps-container">
-    <!-- المابات ستظهر هنا تلقائياً -->
+			
 		</div>
 
-        <div class="players-section">
-            <h2 class="section-title" style="margin-top: 0;">اللاعبون المتواجدون حالياً</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>اسم اللاعب</th>
-                        <th>رقم الماب</th>
-                        <th>الإحداثيات (X, Y, Z)</th>
-                    </tr>
-                </thead>
-                <tbody id="players-table-body">
-                    <tr>
-                        <td colspan="3" style="text-align: center;">جاري تحميل اللاعبين...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        
     </div>
 
     <script>
@@ -135,44 +118,13 @@
         const API_KEY = "sb_publishable_6TPxZAyr9udsr6WyiOohlQ_PIferL2Z";
 
         function playMap(mapId) {
-            let username = prompt("أدخل اسم المستخدم الخاص بك:", "Player" + Math.floor(Math.random() * 100));
+            let username = prompt("Add your username:", "Player" + Math.floor(Math.random() * 100));
             if (!username) return;
             // يفتح البروتوكول ويرسل رقم الماب مع اسم المستخدم
             window.location.href = `deblox://${mapId}/${username}`;
         }
 
-        async function fetchActivePlayers() {
-            try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/players?select=username,map_id,x,y,z`, {
-                    headers: {
-                        "apikey": API_KEY,
-                        "Authorization": `Bearer ${API_KEY}`
-                    }
-                });
-                const players = await response.json();
-                
-                const tbody = document.getElementById("players-table-body");
-                tbody.innerHTML = "";
-
-                if (!players || players.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="3" style="text-align: center;">لا يوجد لاعبين متواجدين حالياً.</td></tr>`;
-                    return;
-                }
-
-                players.forEach(p => {
-                    const tr = document.createElement("tr");
-                    tr.innerHTML = `
-                        <td>${p.username}</td>
-                        <td>الماب ${p.map_id}</td>
-                        <td>(${p.x.toFixed(1)}, ${p.y.toFixed(1)}, ${p.z.toFixed(1)})</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            } catch (error) {
-                console.error("خطأ أثناء جلب اللاعبين:", error);
-            }
-        }
-		async function fetchMaps() {
+        
     try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/maps?select=id,name,description`, {
             headers: {
@@ -203,14 +155,12 @@
             mapsContainer.appendChild(card);
         });
     } catch (error) {
-        console.error("خطأ أثناء جلب المابات:", error);
+        console.error("Error to get maps:", error);
     }
 }
 
 // استدعِ الدالة عند فتح الصفحة عشان تعرض المابات الموجودة في قاعدة البيانات فوراً
 fetchMaps();
-        setInterval(fetchActivePlayers, 3000);
-        fetchActivePlayers();
     </script>
 </body>
 </html>
