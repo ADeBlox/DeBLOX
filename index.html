@@ -124,43 +124,45 @@
             window.location.href = `deblox://${mapId}/${username}`;
         }
 
-        
-    try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/maps?select=id,name,description`, {
-            headers: {
-                "apikey": API_KEY,
-                "Authorization": `Bearer ${API_KEY}`
-            }
-        });
-        const maps = await response.json();
-        
-        const mapsContainer = document.getElementById("maps-container");
-        mapsContainer.innerHTML = "";
+        async function fetchMaps() {
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/maps?select=id,name,description`, {
+                    headers: {
+                        "apikey": API_KEY,
+                        "Authorization": `Bearer ${API_KEY}`
+                    }
+                });
+                const maps = await response.json();
+                
+                const mapsContainer = document.getElementById("maps-container");
+                mapsContainer.innerHTML = "";
 
-        if (!maps || maps.length === 0) {
-            mapsContainer.innerHTML = "<p style='color: white;'>لا توجد مابات متاحة حالياً.</p>";
-            return;
+                if (!maps || maps.length === 0) {
+                    mapsContainer.innerHTML = "<p style='color: white;'>لا توجد مابات متاحة حالياً.</p>";
+                    return;
+                }
+
+                maps.forEach(map => {
+                    const card = document.createElement("div");
+                    card.className = "map-card";
+                    card.innerHTML = `
+                        <div class="map-info">
+                            <h3>الماب ${map.id}: ${map.name}</h3>
+                            <p>${map.description || "بدون وصف"}</p>
+                            <button class="btn" onclick="playMap(${map.id})">دخول الماب ${map.id}</button>
+                        </div>
+                    `;
+                    mapsContainer.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error to get maps:", error);
+            }
         }
 
-        maps.forEach(map => {
-            const card = document.createElement("div");
-            card.className = "map-card";
-            card.innerHTML = `
-                <div class="map-info">
-                    <h3>الماب ${map.id}: ${map.name}</h3>
-                    <p>${map.description || "بدون وصف"}</p>
-                    <button class="btn" onclick="playMap(${map.id})">دخول الماب ${map.id}</button>
-                </div>
-            `;
-            mapsContainer.appendChild(card);
+        // استدعِ الدالة عند تحميل الصفحة للتأكد من جاهزية العناصر
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchMaps();
         });
-    } catch (error) {
-        console.error("Error to get maps:", error);
-    }
-}
-
-// استدعِ الدالة عند فتح الصفحة عشان تعرض المابات الموجودة في قاعدة البيانات فوراً
-fetchMaps();
     </script>
 </body>
 </html>
