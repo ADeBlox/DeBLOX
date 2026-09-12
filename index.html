@@ -105,7 +105,7 @@
     </header>
 
     <div class="container">
-        <h2 class="section-title">المابات المتاحة</h2>
+        <h2 class="section-title">Games</h2>
         <div class="maps-grid" id="maps-container">
 			
 		</div>
@@ -138,7 +138,7 @@
                 mapsContainer.innerHTML = "";
 
                 if (!maps || maps.length === 0) {
-                    mapsContainer.innerHTML = "<p style='color: white;'>لا توجد مابات متاحة حالياً.</p>";
+                    mapsContainer.innerHTML = "<p style='color: white;'>No maps.</p>";
                     return;
                 }
 
@@ -147,9 +147,9 @@
                     card.className = "map-card";
                     card.innerHTML = `
                         <div class="map-info">
-                            <h3>الماب ${map.id}: ${map.name}</h3>
-                            <p>${map.description || "بدون وصف"}</p>
-                            <button class="btn" onclick="playMap(${map.id})">دخول الماب ${map.id}</button>
+                            <h3>${map.name}</h3>
+                            <p>${map.description || "Without discription."}</p>
+                            <button class="btn" onclick="playMap(${map.id})">Join</button>
                         </div>
                     `;
                     mapsContainer.appendChild(card);
