@@ -3,158 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeBLOX - Classic</title>
+    <title>DeBLOX</title>
     <style>
         body {
-            font-family: "Courier New", Courier, monospace, Tahoma, sans-serif;
-            background-color: #ffffff;
-            color: #000000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f9fa;
+            color: #222222;
             margin: 0;
             padding: 0;
-            border-top: 5px solid #000000;
         }
 
-        /* شريط التنقل الكلاسيكي البسيط */
-        nav {
-            background-color: #000000;
-            color: #ffffff;
-            height: 50px;
+        /* شريط علوي بسيط ونظيف */
+        header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e1e4e8;
+            padding: 16px 30px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 0 30px;
+            align-items: center;
         }
 
-        .nav-brand {
+        .logo {
             font-size: 20px;
             font-weight: bold;
-            color: #ffffff;
+            color: #111111;
             text-decoration: none;
-            letter-spacing: 2px;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .nav-links a {
+        .download-btn {
+            background-color: #111111;
             color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 6px;
             text-decoration: none;
             font-size: 14px;
-            border: 1px solid #ffffff;
-            padding: 5px 10px;
-            transition: all 0.1s;
+            font-weight: 600;
         }
 
-        .nav-links a:hover {
-            background-color: #ffffff;
-            color: #000000;
-        }
-
-        /* المحتوى الرئيسي */
+        /* الحاوية الرئيسية */
         .container {
             max-width: 900px;
-            margin: 30px auto;
+            margin: 40px auto;
             padding: 0 20px;
         }
 
-        .section-title {
+        h2 {
             font-size: 20px;
-            font-weight: bold;
-            border-bottom: 2px solid #000000;
-            padding-bottom: 5px;
             margin-bottom: 20px;
-            text-transform: uppercase;
+            color: #111111;
         }
 
-        /* شبكة الألعاب البسيطة */
+        /* شبكة الألعاب البسيطة والمرتبة */
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 20px;
         }
 
         .game-card {
             background-color: #ffffff;
-            border: 2px solid #000000;
-            border-radius: 0;
-            padding: 15px;
-            box-shadow: 4px 4px 0px #000000;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: box-shadow 0.2s;
         }
 
-        .game-thumbnail {
-            width: 100%;
-            height: 120px;
-            background-color: #000000;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 12px;
+        .game-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .game-title {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: bold;
-            margin: 0 0 5px 0;
+            margin: 0 0 6px 0;
+            color: #111111;
         }
 
         .game-author {
             font-size: 13px;
-            color: #555555;
-            margin: 0 0 15px 0;
+            color: #666666;
+            margin: 0 0 20px 0;
         }
 
         .play-btn {
-            background-color: #000000;
+            background-color: #0070f3;
             color: #ffffff;
-            border: 2px solid #000000;
-            padding: 8px;
-            font-weight: bold;
-            font-family: inherit;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
             width: 100%;
             text-align: center;
-            transition: all 0.1s;
+            transition: background-color 0.2s;
         }
 
         .play-btn:hover {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #0051cc;
         }
 
-        .no-maps {
+        .message {
             text-align: center;
-            color: #555;
+            color: #666666;
             grid-column: 1 / -1;
-            padding: 30px;
+            padding: 40px;
         }
     </style>
 </head>
 <body>
 
-    <!-- شريط التنقل -->
-    <nav>
-        <a href="#" class="nav-brand">DEBLOX</a>
-        <div class="nav-links">
-            <a href="#">Games</a>
-            <a href="DeBlox.zip" download>Download Client</a>
-        </div>
-    </nav>
+    <header>
+        <a href="#" class="logo">DeBLOX</a>
+        <a href="DeBlox.zip" class="download-btn" download>Download</a>
+    </header>
 
     <div class="container">
-        <div class="section-title">Games Archive</div>
-        
-        <!-- قائمة الألعاب -->
+        <h2>Games</h2>
         <div class="games-grid" id="maps-container">
-            <p class="no-maps">Loading games...</p>
+            <div class="message">Loading...</div>
         </div>
     </div>
 
@@ -180,7 +151,7 @@
                 mapsContainer.innerHTML = "";
 
                 if (!maps || maps.length === 0) {
-                    mapsContainer.innerHTML = "<p class='no-maps'>No games found.</p>";
+                    mapsContainer.innerHTML = "<div class='message'>No games found.</div>";
                     return;
                 }
 
@@ -188,13 +159,10 @@
                     const card = document.createElement("div");
                     card.className = "game-card";
                     
-                    const firstLetter = map.name ? map.name.charAt(0).toUpperCase() : "DB";
-                    // حقل description يمثل اسم المطور بناءً على رغبتك
                     const authorName = map.description ? `By ${map.description}` : "By Unknown";
 
                     card.innerHTML = `
                         <div>
-                            <div class="game-thumbnail">${firstLetter}</div>
                             <div class="game-title">${map.name}</div>
                             <div class="game-author">${authorName}</div>
                         </div>
@@ -203,8 +171,8 @@
                     mapsContainer.appendChild(card);
                 });
             } catch (error) {
-                console.error("Error fetching maps:", error);
-                document.getElementById("maps-container").innerHTML = "<p class='no-maps'>Error loading games.</p>";
+                console.error("Error:", error);
+                document.getElementById("maps-container").innerHTML = "<div class='message'>Failed to load games.</div>";
             }
         }
 
