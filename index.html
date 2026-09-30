@@ -119,7 +119,7 @@
         function playMap(mapId) {
             let username = prompt("Add your username:", "Player" + Math.floor(Math.random() * 100));
             if (!username) return;
-            window.location.href = `deblox://${mapId}/${username}`;
+            window.location.href = `deblox://${mapId}`;
         }
 
         async function fetchMaps() {
