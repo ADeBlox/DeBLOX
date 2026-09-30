@@ -61,7 +61,7 @@
         }
 
         .game-card {
-            background-color: #ffffff;
+            background-color: #f8f8f8;
             border: 1px solid #e1e4e8;
             border-radius: 8px;
             padding: 20px;
@@ -90,7 +90,7 @@
         }
 
         .play-btn {
-            background-color: #0070f3;
+            background-color: #2ea44f;
             color: #ffffff;
             border: none;
             padding: 10px;
@@ -159,14 +159,14 @@
                     const card = document.createElement("div");
                     card.className = "game-card";
                     
-                    const authorName = map.description ? `By ${map.description}` : "By Unknown";
+                    const authorName = map.description ? `By ${map.description}` : "Unknown";
 
                     card.innerHTML = `
                         <div>
                             <div class="game-title">${map.name}</div>
                             <div class="game-author">${authorName}</div>
                         </div>
-                        <button class="play-btn" onclick="playMap(${map.id})">Play</button>
+                        <button class="play-btn" onclick="playMap(${map.id})">▶</button>
                     `;
                     mapsContainer.appendChild(card);
                 });
